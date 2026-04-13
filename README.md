@@ -1,5 +1,5 @@
 # Flux
-This is a replacement for the Luduvo numeric display. The API stays the same, so the switch takes minutes.
+This is a replacement for the Luduvo numeric display. (*Made By matt*) The API stays the same, so the switch takes minutes.
 
 ## What You Keep
 
