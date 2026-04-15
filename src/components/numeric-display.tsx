@@ -120,3 +120,7 @@ function DigitColumn({ digit, speed }: { digit: number; speed: number }) {
     </div>
   )
 }
+
+// Default export for convenience
+export default NumericDisplay
+

@@ -1,0 +1,41 @@
+# Source files
+src/
+
+# Development files
+*.config.ts
+tsconfig*.json
+.eslintrc.*
+.prettierrc
+
+# Git files
+.git/
+.gitignore
+
+# GitHub
+.github/
+
+# Documentation
+docs/
+
+# Distribution
+node_modules/
+.cache/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+vitest.config.ts

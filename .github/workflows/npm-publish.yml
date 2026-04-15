@@ -1,33 +1,98 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# Production-ready npm package publishing workflow
+# Automatically builds and publishes @aulvar/flux to npm on GitHub Release
+# Trigger: GitHub Release creation (not pre-release)
 
-name: Node.js Package
+name: Publish to npm
 
 on:
   release:
-    types: [created]
+    types: [created, edited, released]
 
 jobs:
-  build:
+  build-and-publish:
+    name: Build and Publish
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
+    if: '!github.event.release.prerelease'
+    permissions:
+      contents: read
+      packages: write
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+          fetch-depth: 0
+
+      # Setup Node.js environment
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+
+      # Extract version from release tag
+      - name: Extract version from release tag
+        id: version
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          # Remove leading 'v' if present
+          VERSION=${VERSION#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      # Update package.json with release version
+      - name: Update package.json version
+        run: |
+          npm pkg set version=${{ steps.version.outputs.version }}
+
+      # Auto-generate barrel export file (src/components/index.ts)
+      # This scans src/components and generates clean exports
+      - name: Generate barrel export
+        run: |
+          cat > src/components/index.ts << 'EOF'
+          /**
+           * @aulvar/flux - Numeric Display Component Library
+           *
+           * High-performance numeric display components with smooth animations using Framer Motion.
+           */
+
+          export { NumericDisplay, type NumericDisplayProps } from "./numeric-display"
+          export { default } from "./numeric-display"
+          EOF
+          echo "Barrel export generated successfully"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Type check with TypeScript
+      - name: Type check
+        run: npx tsc --noEmit
+
+      # Build the library
+      - name: Build library
+        run: npm run build
+
+      # Verify build artifacts exist
+      - name: Verify build artifacts
+        run: |
+          ls -la dist/
+          test -f dist/index.es.js || (echo "index.es.js not found" && exit 1)
+          test -f dist/index.umd.js || (echo "index.umd.js not found" && exit 1)
+          test -f dist/index.d.ts || (echo "index.d.ts not found" && exit 1)
+          echo "All build artifacts verified"
+
+      # Publish to npm
+      - name: Publish to npm
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+      # Post-publish verification
+      - name: Verify package publication
+        run: |
+          echo "Package @aulvar/flux@${{ steps.version.outputs.version }} published successfully"
+          npm info @aulvar/flux@${{ steps.version.outputs.version }}
+

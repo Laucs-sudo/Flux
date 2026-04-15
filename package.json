@@ -1,0 +1,72 @@
+{
+  "name": "@aulvar/flux",
+  "version": "0.0.0-placeholder",
+  "description": "A high-performance numeric display component for React with smooth animations using Framer Motion",
+  "license": "MIT",
+  "author": "Aulvar",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Laucs-sudo/Flux.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Laucs-sudo/Flux/issues"
+  },
+  "homepage": "https://github.com/Laucs-sudo/Flux#readme",
+  "keywords": [
+    "react",
+    "numeric-display",
+    "animation",
+    "framer-motion",
+    "component",
+    "vite"
+  ],
+  "type": "module",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "framer-motion": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
