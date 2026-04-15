@@ -89,6 +89,16 @@ Contributions welcome. Submit a Pull Request to help improve this component.
 
 MIT License. See LICENSE file for details.
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=laucs-sudo%2Fflux&type=date&logscale=&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=laucs-sudo/flux&type=date&theme=dark&logscale&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=laucs-sudo/flux&type=date&logscale&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=laucs-sudo/flux&type=date&logscale&legend=top-left" />
+ </picture>
+</a>
+
 ## Support
 
 Documentation: https://github.com/Laucs-sudo/Flux
