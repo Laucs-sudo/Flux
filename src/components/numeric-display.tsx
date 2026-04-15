@@ -121,6 +121,6 @@ function DigitColumn({ digit, speed }: { digit: number; speed: number }) {
   )
 }
 
-// Default export for convenience
+
 export default NumericDisplay
 
