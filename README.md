@@ -1,4 +1,4 @@
-# @aulvar/flux
+# flux
 
 A high-performance numeric display component for React with smooth animations using Framer Motion.
 
@@ -95,5 +95,4 @@ Documentation: https://github.com/Laucs-sudo/Flux
 Issues: https://github.com/Laucs-sudo/Flux/issues
 Discussions: https://github.com/Laucs-sudo/Flux/discussions
 
-Made with care From Aulvar
-Made By Laucs♡
+Made with ♡ From Aulvar Team
